@@ -1,10 +1,11 @@
+import CarsList from "./components/CarsList/CarsList";
 
 
 function App() {
  
   return (
     <>
-    Home
+    <CarsList/>
     </>
   )
 }

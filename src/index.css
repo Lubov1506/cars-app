@@ -1,0 +1,22 @@
+@import url("./styles/reset.css");
+@import url("./styles/fonts.css");
+
+:root {
+  --font-family: "Manrope", sans-serif;
+  --second-family: "Inter", sans-serif;
+  --btn-background: #3470ff;
+  --btn-hover: #0b44cd;
+  --color-white: #fff;
+  --transition-effect: 300ms linear;
+  --text-primary: #121417;
+  --text-secondary: rgba(18, 20, 23, 0.5);
+}
+
+body {
+  font-family: var(--font-family);
+}
+.container {
+  width: 1184px;
+  border: 2px solid red;
+  margin: 0 auto;
+}
