@@ -1,4 +1,6 @@
+import { formatPrice } from "../../helpers/formatPrice";
 import { formatRentalConditions } from "../../helpers/formatRentalConditions";
+import { prettyBalanceFormat } from "../../helpers/prettyBalanceFormat";
 import { defaultCar } from "../../images/defaultCarImg";
 import Button from "../Button/Button";
 import Modal from "../Modal/Modal";
@@ -82,10 +84,10 @@ const CarModal = ({ onClose, item }) => {
             }
           })}
           <li>
-            Mileage: <span className={s.blue_accent}>{mileage}</span>
+            Mileage: <span className={s.blue_accent}>{prettyBalanceFormat(mileage)}</span>
           </li>
           <li>
-            Price: <span className={s.blue_accent}>{rentalPrice}</span>{" "}
+            Price: <span className={s.blue_accent}>{formatPrice(rentalPrice)}$</span>
           </li>
         </ul>
       </section>

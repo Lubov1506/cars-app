@@ -21,7 +21,7 @@
         width: 100%;
         height: 100%;
         object-fit: contain;
-        object-position: center;
+        object-position: bottom;
       }
     }
     h2 {
@@ -88,6 +88,9 @@
 
       height: 32px;
       background-color: var(--li-bgc-grey);
+      .blue_accent {
+        font-weight: 600;
+      }
     }
   }
   .blue_accent {
