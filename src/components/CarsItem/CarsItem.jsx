@@ -5,6 +5,9 @@ import s from "./CarsItem.module.css";
 import { toggleFavorite } from "../../redux/cars/slice";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFavoritesId } from "../../redux/cars/selectors";
+import { useState } from "react";
+import CarModal from "../CarModal/CarModal";
+import { defaultCar } from "../../images/defaultCarImg";
 
 const CarsItem = ({ item }) => {
   const {
@@ -21,8 +24,15 @@ const CarsItem = ({ item }) => {
   } = item;
   const dispatch = useDispatch();
   const favoritesId = useSelector(selectFavoritesId);
-  const defaultCar =
-    "https://static.vecteezy.com/system/resources/previews/019/879/187/non_2x/car-monochrome-icon-on-transparent-background-free-png.png";
+
+  const [isOpen, setIsOpen] = useState(false)
+  const openModal = () => {
+    setIsOpen(true)
+  }
+  const closeModal = () => {
+    setIsOpen(false)
+  }
+
 
   const MAX_LENGTH_NAME = 13;
   const carName = make + " " + model;
@@ -34,8 +44,11 @@ const CarsItem = ({ item }) => {
     .toLowerCase()}`;
   const isFavorite = favoritesId.find((carId) => carId === item.id);
   console.log(isFavorite);
+
   return (
-    <li className={s.card}>
+    <>
+
+    <li className={s.card} onClick={() =>openModal()}>
       <button className={s.icon} onClick={() => dispatch(toggleFavorite(item))}>
         {isFavorite ? (
           <MdOutlineFavorite className={s.liked_icon} />
@@ -79,7 +92,9 @@ const CarsItem = ({ item }) => {
         </div>
       </div>
       <Button className={s.card_btn}>Learn more</Button>
-    </li>
+      </li>
+      {isOpen && <CarModal onClose={closeModal} item={ item} />}
+    </>
   );
 };
 

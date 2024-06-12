@@ -10,6 +10,8 @@
   --transition-effect: 300ms linear;
   --text-primary: #121417;
   --text-secondary: rgba(18, 20, 23, 0.5);
+  --li-bgc-grey: #f9f9f9;
+  --text-li: #363535;
 }
 
 body {
@@ -22,6 +24,7 @@ body {
   width: 1184px;
   /* border: 2px solid red; */
   margin: 0 auto;
+  padding-bottom: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;

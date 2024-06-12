@@ -13,6 +13,7 @@ import {
 } from "../../redux/cars/selectors";
 import CarsItem from "../CarsItem/CarsItem";
 import Container from "../Container/Container";
+import CarModal from '../CarModal/CarModal'
 import { setCurrentPage } from "../../redux/cars/slice";
 
 const CarsList = () => {
@@ -20,7 +21,13 @@ const CarsList = () => {
   const currentPage = useSelector(selectCurrerntPage);
   const dispatch = useDispatch();
   const totalPage = useSelector(selectTotalPage);
-
+  // const [isOpen, setIsOpen] = useState(false)
+  // const openModal = () => {
+  //   setIsOpen(true)
+  // }
+  // const closeModal = () => {
+  //   setIsOpen(false)
+  // }
   useEffect(() => {
     dispatch(fetchAllCarsThunk());
   }, [dispatch]);
@@ -44,7 +51,7 @@ const CarsList = () => {
       {cars.length ? (
         <ul className={s.list}>
           {cars.map((car) => {
-            return <CarsItem key={car.id} item={car} />;
+            return <CarsItem key={car.id} item={car}  />;
           })}
         </ul>
       ) : null}
@@ -54,6 +61,7 @@ const CarsList = () => {
           Load more
         </Button>
       )}
+      {/* {isOpen && <CarModal/>} */}
     </Container>
   );
 };
