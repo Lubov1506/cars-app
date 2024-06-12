@@ -14,9 +14,15 @@
 
 body {
   font-family: var(--font-family);
+  display: flex;
+  flex-direction: column;
 }
+
 .container {
   width: 1184px;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }

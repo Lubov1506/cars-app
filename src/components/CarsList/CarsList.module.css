@@ -5,4 +5,9 @@
   display: flex;
   flex-wrap: wrap;
   gap: 29px;
+  padding-bottom: 20px;
+}
+.load_btn {
+  align-self: center;
+  padding: 10px 20px;
 }

@@ -1,10 +1,12 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { fetchCarsThunk } from "./operations";
+import { fetchAllCarsThunk, fetchCarsPagThunk } from "./operations";
 
 const initialState = {
   cars: [],
   isLoading: false,
   isError: false,
+  totalPage: null,
+  limit: 12,
 };
 
 const slice = createSlice({
@@ -12,20 +14,34 @@ const slice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCarsThunk.fulfilled, (state, { payload }) => {
-        state.cars = payload;
+      .addCase(fetchAllCarsThunk.fulfilled, (state, { payload }) => {
+        state.totalPage = Math.ceil(payload.length / state.limit);
       })
-      .addMatcher(isAnyOf(fetchCarsThunk.pending), (state) => {
-        state.error = false;
-        state.isLoading = true;
+      .addCase(fetchCarsPagThunk.fulfilled, (state, { payload }) => {
+        console.log(payload);
+        state.cars = [...state.cars, ...payload];
       })
-      .addMatcher(isAnyOf(fetchCarsThunk.rejected), (state) => {
-        state.error = true;
-        state.isLoading = false;
-      })
-      .addMatcher(isAnyOf(fetchCarsThunk.fulfilled), (state) => {
-        state.isLoading = false;
-      });
+
+      .addMatcher(
+        isAnyOf(fetchCarsPagThunk.pending, fetchAllCarsThunk.pending),
+        (state) => {
+          state.error = false;
+          state.isLoading = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(fetchCarsPagThunk.rejected, fetchAllCarsThunk.rejected),
+        (state) => {
+          state.error = true;
+          state.isLoading = false;
+        }
+      )
+      .addMatcher(
+        isAnyOf(fetchCarsPagThunk.fulfilled, fetchAllCarsThunk.fulfilled),
+        (state) => {
+          state.isLoading = false;
+        }
+      );
   },
 });
 export const carsReducer = slice.reducer;

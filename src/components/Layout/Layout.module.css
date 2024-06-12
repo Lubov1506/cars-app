@@ -1,0 +1,7 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+}
+.outlet {
+  padding-top: 20px;
+}

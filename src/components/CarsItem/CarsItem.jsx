@@ -1,7 +1,10 @@
 import Button from "../Button/Button";
+import { GrFavorite } from "react-icons/gr";
+import { MdOutlineFavorite } from "react-icons/md";
 import s from "./CarsItem.module.css";
-const CarsItem = ({
-  item: {
+
+const CarsItem = ({ item }) => {
+  const {
     address,
     functionalities,
     img,
@@ -12,8 +15,9 @@ const CarsItem = ({
     rentalPrice,
     type,
     id,
-  },
-}) => {
+    isLiked,
+  } = item;
+
   const defaultCar =
     "https://static.vecteezy.com/system/resources/previews/019/879/187/non_2x/car-monochrome-icon-on-transparent-background-free-png.png";
 
@@ -25,11 +29,16 @@ const CarsItem = ({
   const formatType = `${type.slice(0, 1).toUpperCase()}${type
     .slice(1)
     .toLowerCase()}`;
-  const topInfo = [city, country, rentalCompany];
-  const botInfo = [formatType, model, id, functionality];
 
   return (
     <li className={s.card}>
+      <button className={s.icon} >
+        {isLiked ? (
+          <MdOutlineFavorite className={s.liked_icon} />
+        ) : (
+          <GrFavorite width={16} height={16} />
+        )}
+      </button>
       <div className={s.img_wrap}>
         <img
           src={img ?? defaultCar}
@@ -39,7 +48,7 @@ const CarsItem = ({
       </div>
       <div className={s.desc}>
         <div className={s.heading}>
-          {carName.length < 13 ? (
+          {carName.length < MAX_LENGTH_NAME ? (
             <p>
               {make} <span className={s.accent_blue}>{model}</span>, {year}
             </p>
@@ -51,8 +60,18 @@ const CarsItem = ({
           <p>{rentalPrice}</p>
         </div>
         <div className={s.bottom}>
-          <p>{topInfo.join(" | ")}</p>
-          <p>{botInfo.join(" | ")}</p>
+          <ul>
+            <li>{city}</li>
+            <li>{country}</li>
+            <li>{rentalCompany}</li>
+          </ul>
+
+          <ul className={s.bot_info}>
+            <li>{formatType}</li>
+            <li>{model}</li>
+            <li>{id}</li>
+            <li>{functionality}</li>
+          </ul>
         </div>
       </div>
       <Button className={s.card_btn}>Learn more</Button>

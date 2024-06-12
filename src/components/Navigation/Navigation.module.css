@@ -1,0 +1,15 @@
+.nav_list {
+  display: flex;
+  gap: 10px;
+  a {
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 8px;
+  }
+}
+.active {
+  color: var(--color-white) !important;
+  background-color: var(--btn-background);
+}
