@@ -2,6 +2,9 @@ import Button from "../Button/Button";
 import { GrFavorite } from "react-icons/gr";
 import { MdOutlineFavorite } from "react-icons/md";
 import s from "./CarsItem.module.css";
+import { toggleFavorite } from "../../redux/cars/slice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectFavoritesId } from "../../redux/cars/selectors";
 
 const CarsItem = ({ item }) => {
   const {
@@ -15,9 +18,9 @@ const CarsItem = ({ item }) => {
     rentalPrice,
     type,
     id,
-    isLiked,
   } = item;
-
+  const dispatch = useDispatch();
+  const favoritesId = useSelector(selectFavoritesId);
   const defaultCar =
     "https://static.vecteezy.com/system/resources/previews/019/879/187/non_2x/car-monochrome-icon-on-transparent-background-free-png.png";
 
@@ -29,11 +32,12 @@ const CarsItem = ({ item }) => {
   const formatType = `${type.slice(0, 1).toUpperCase()}${type
     .slice(1)
     .toLowerCase()}`;
-
+  const isFavorite = favoritesId.find((carId) => carId === item.id);
+  console.log(isFavorite);
   return (
     <li className={s.card}>
-      <button className={s.icon} >
-        {isLiked ? (
+      <button className={s.icon} onClick={() => dispatch(toggleFavorite(item))}>
+        {isFavorite ? (
           <MdOutlineFavorite className={s.liked_icon} />
         ) : (
           <GrFavorite width={16} height={16} />

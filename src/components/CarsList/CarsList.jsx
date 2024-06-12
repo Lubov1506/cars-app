@@ -1,31 +1,44 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllCarsThunk, fetchCarsPagThunk } from "../../redux/cars/operations";
+import {
+  fetchAllCarsThunk,
+  fetchCarsPagThunk,
+} from "../../redux/cars/operations";
 import Button from "../Button/Button";
 import s from "./CarsList.module.css";
 import {
   selectCars,
+  selectCurrerntPage,
   selectTotalPage,
 } from "../../redux/cars/selectors";
 import CarsItem from "../CarsItem/CarsItem";
 import Container from "../Container/Container";
+import { setCurrentPage } from "../../redux/cars/slice";
 
 const CarsList = () => {
   const cars = useSelector(selectCars);
-  const [page, setPage] = useState(1);
+  const currentPage = useSelector(selectCurrerntPage);
   const dispatch = useDispatch();
   const totalPage = useSelector(selectTotalPage);
 
   useEffect(() => {
     dispatch(fetchAllCarsThunk());
   }, [dispatch]);
+
   useEffect(() => {
-    dispatch(fetchCarsPagThunk({ page }));
-  }, [dispatch, page]);
+    if (cars.length === 0) {
+      dispatch(fetchCarsPagThunk({ page: 1 }));
+    }
+  }, [dispatch, cars.length]);
 
   const handleLoadMore = () => {
-    setPage((prevPage) => prevPage + 1);
+    const nextPage = currentPage + 1;
+    if (nextPage <= totalPage) {
+      dispatch(setCurrentPage(nextPage));
+      dispatch(fetchCarsPagThunk({ page: nextPage }));
+    }
   };
+  console.log(cars, totalPage);
   return (
     <Container>
       {cars.length ? (
@@ -36,7 +49,7 @@ const CarsList = () => {
         </ul>
       ) : null}
 
-      {page < totalPage && (
+      {currentPage < totalPage && (
         <Button className={s.load_btn} onClick={() => handleLoadMore()}>
           Load more
         </Button>

@@ -3,15 +3,36 @@ import { fetchAllCarsThunk, fetchCarsPagThunk } from "./operations";
 
 const initialState = {
   cars: [],
+  favorites: [],
+  favoritesId: [],
   isLoading: false,
   isError: false,
   totalPage: null,
   limit: 12,
+  currentPage: 1,
 };
 
 const slice = createSlice({
   name: "cars",
   initialState,
+  reducers: {
+    toggleFavorite: (state, action) => {
+      const car = action.payload;
+      const isFavorite = state.favoritesId.includes(car.id);
+      if (isFavorite) {
+        state.favorites = state.favorites.filter(
+          (favCar) => favCar.id !== car.id
+        );
+        state.favoritesId = state.favoritesId.filter((id) => id !== car.id);
+      } else {
+        state.favorites.push(car);
+        state.favoritesId.push(car.id);
+      }
+    },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllCarsThunk.fulfilled, (state, { payload }) => {
@@ -44,4 +65,5 @@ const slice = createSlice({
       );
   },
 });
+export const { toggleFavorite, setCurrentPage } = slice.actions;
 export const carsReducer = slice.reducer;
