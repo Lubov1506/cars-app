@@ -11,6 +11,7 @@
     position: absolute;
     top: 16px;
     right: 16px;
+    padding: 3px;
     color: rgba(255, 255, 255, 0.8);
   }
   .liked_icon {

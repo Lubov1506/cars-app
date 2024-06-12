@@ -25,14 +25,13 @@ const CarsItem = ({ item }) => {
   const dispatch = useDispatch();
   const favoritesId = useSelector(selectFavoritesId);
 
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
   const openModal = () => {
-    setIsOpen(true)
-  }
+    setIsOpen(true);
+  };
   const closeModal = () => {
-    setIsOpen(false)
-  }
-
+    setIsOpen(false);
+  };
 
   const MAX_LENGTH_NAME = 13;
   const carName = make + " " + model;
@@ -45,55 +44,61 @@ const CarsItem = ({ item }) => {
   const isFavorite = favoritesId.find((carId) => carId === item.id);
   console.log(isFavorite);
 
+  const handleFavoriteClick = (e) => {
+    e.stopPropagation();
+    dispatch(toggleFavorite(item));
+  };
   return (
     <>
-
-    <li className={s.card} onClick={() =>openModal()}>
-      <button className={s.icon} onClick={() => dispatch(toggleFavorite(item))}>
-        {isFavorite ? (
-          <MdOutlineFavorite className={s.liked_icon} />
-        ) : (
-          <GrFavorite width={16} height={16} />
-        )}
-      </button>
-      <div className={s.img_wrap}>
-        <img
-          src={img ?? defaultCar}
-          className={!img ? s.default_img : undefined}
-          alt={make}
-        />
-      </div>
-      <div className={s.desc}>
-        <div className={s.heading}>
-          {carName.length < MAX_LENGTH_NAME ? (
-            <p>
-              {make} <span className={s.accent_blue}>{model}</span>, {year}
-            </p>
+      <li className={s.card} onClick={() => openModal()}>
+        <button
+          className={s.icon}
+          onClick={handleFavoriteClick}
+        >
+          {isFavorite ? (
+            <MdOutlineFavorite size={20} className={s.liked_icon} />
           ) : (
-            <p>
-              {make}, {year}
-            </p>
+            <GrFavorite size={20} />
           )}
-          <p>{rentalPrice}</p>
+        </button>
+        <div className={s.img_wrap}>
+          <img
+            src={img ?? defaultCar}
+            className={!img ? s.default_img : undefined}
+            alt={make}
+          />
         </div>
-        <div className={s.bottom}>
-          <ul>
-            <li>{city}</li>
-            <li>{country}</li>
-            <li>{rentalCompany}</li>
-          </ul>
+        <div className={s.desc}>
+          <div className={s.heading}>
+            {carName.length < MAX_LENGTH_NAME ? (
+              <p>
+                {make} <span className={s.accent_blue}>{model}</span>, {year}
+              </p>
+            ) : (
+              <p>
+                {make}, {year}
+              </p>
+            )}
+            <p>{rentalPrice}</p>
+          </div>
+          <div className={s.bottom}>
+            <ul>
+              <li>{city}</li>
+              <li>{country}</li>
+              <li>{rentalCompany}</li>
+            </ul>
 
-          <ul className={s.bot_info}>
-            <li>{formatType}</li>
-            <li>{model}</li>
-            <li>{id}</li>
-            <li>{functionality}</li>
-          </ul>
+            <ul className={s.bot_info}>
+              <li>{formatType}</li>
+              <li>{model}</li>
+              <li>{id}</li>
+              <li>{functionality}</li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <Button className={s.card_btn}>Learn more</Button>
+        <Button className={s.card_btn}>Learn more</Button>
       </li>
-      {isOpen && <CarModal onClose={closeModal} item={ item} />}
+      {isOpen && <CarModal onClose={closeModal} item={item} />}
     </>
   );
 };

@@ -81,11 +81,15 @@ const CarModal = ({ onClose, item }) => {
               return <li key={idx}>{item}</li>;
             }
           })}
-          <li>Mileage: <span className={s.blue_accent}>{mileage}</span></li>
-          <li>Price: <span className={s.blue_accent}>{rentalPrice}</span> </li>
+          <li>
+            Mileage: <span className={s.blue_accent}>{mileage}</span>
+          </li>
+          <li>
+            Price: <span className={s.blue_accent}>{rentalPrice}</span>{" "}
+          </li>
         </ul>
       </section>
-      <Button className={ s.btn_rental}>Rental car</Button>
+      <Button className={s.btn_rental}>Rental car</Button>
     </Modal>
   );
 };

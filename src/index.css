@@ -22,9 +22,7 @@ body {
 
 .container {
   width: 1184px;
-  /* border: 2px solid red; */
   margin: 0 auto;
-  padding-bottom: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
