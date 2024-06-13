@@ -84,14 +84,20 @@ const CarModal = ({ onClose, item }) => {
             }
           })}
           <li>
-            Mileage: <span className={s.blue_accent}>{prettyBalanceFormat(mileage)}</span>
+            Mileage:{" "}
+            <span className={s.blue_accent}>
+              {prettyBalanceFormat(mileage)}
+            </span>
           </li>
           <li>
-            Price: <span className={s.blue_accent}>{formatPrice(rentalPrice)}$</span>
+            Price:{" "}
+            <span className={s.blue_accent}>{formatPrice(rentalPrice)}$</span>
           </li>
         </ul>
       </section>
-      <a href="tel:+380730000000" className={s.btn_rental}>Rental car</a>
+      <a href="tel:+380730000000" className={s.btn_rental}>
+        Rental car
+      </a>
     </Modal>
   );
 };

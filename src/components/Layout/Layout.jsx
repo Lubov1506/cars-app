@@ -3,7 +3,6 @@ import Header from "../Header/Header";
 import Navigation from "../Navigation/Navigation";
 import s from "./Layout.module.css";
 
-
 const Layout = () => {
   return (
     <div className={s.layout}>
@@ -11,7 +10,7 @@ const Layout = () => {
         <Navigation />
       </Header>
 
-        <Outlet />
+      <Outlet />
     </div>
   );
 };

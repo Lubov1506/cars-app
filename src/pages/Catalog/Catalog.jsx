@@ -24,7 +24,7 @@ const Catalog = () => {
 
   const dispatch = useDispatch();
   const totalPage = useSelector(selectTotalPage);
-console.log(currentPage, totalPage);
+
   useEffect(() => {
     dispatch(fetchAllCarsThunk({ query }));
   }, [dispatch, query]);

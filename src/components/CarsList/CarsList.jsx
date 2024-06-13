@@ -1,9 +1,7 @@
 import s from "./CarsList.module.css";
 import CarsItem from "../CarsItem/CarsItem";
 
-
-const CarsList = ({ cars=[] }) => {
-
+const CarsList = ({ cars = [] }) => {
   return (
     <>
       {cars.length ? (

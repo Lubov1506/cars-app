@@ -49,11 +49,8 @@ const CarsItem = ({ item }) => {
   };
   return (
     <>
-      <li className={s.card} >
-        <button
-          className={s.icon}
-          onClick={handleFavoriteClick}
-        >
+      <li className={s.card}>
+        <button className={s.icon} onClick={handleFavoriteClick}>
           {isFavorite ? (
             <MdOutlineFavorite size={20} className={s.liked_icon} />
           ) : (
@@ -95,7 +92,9 @@ const CarsItem = ({ item }) => {
             </ul>
           </div>
         </div>
-        <Button className={s.card_btn} onClick={() => openModal()}>Learn more</Button>
+        <Button className={s.card_btn} onClick={() => openModal()}>
+          Learn more
+        </Button>
       </li>
       {isOpen && <CarModal onClose={closeModal} item={item} />}
     </>
