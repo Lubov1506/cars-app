@@ -1,7 +1,9 @@
 .header {
   z-index: 10;
   position: sticky;
-  padding: 20px;
+  height: 80px;
+  display: flex;
+  align-items: center;
   top: 0;
   background-color: var(--color-white);
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.15);

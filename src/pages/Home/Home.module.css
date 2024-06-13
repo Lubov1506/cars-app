@@ -1,5 +1,26 @@
-.container {
-  padding-bottom: 20px;
+.home {
+  height: calc(100vh - 80px);
+  max-height: 1000px;
+  background-color: rgba(128, 128, 128, 0.114);
+  background-image: url("https://travel4free.ru/wp-content/uploads/2018/06/car_couple_ride.jpg");
+  background-repeat: no-repeat;
+  background-position: top, bottom;
+  background-size: cover;
+  .slogo {
+    height: 500px;
+    background-image: linear-gradient(
+      rgba(81, 81, 81, 0.772),
+      rgba(112, 112, 112, 0.012)
+    );
+    h1 {
+      text-align: right;
+      padding: 30px;
+      font-size: 100px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--color-white);
+    }
+  }
 }
 
 .load_btn {
