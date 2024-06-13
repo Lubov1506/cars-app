@@ -42,7 +42,6 @@ const CarsItem = ({ item }) => {
     .slice(1)
     .toLowerCase()}`;
   const isFavorite = favoritesId.find((carId) => carId === item.id);
-  console.log(isFavorite);
 
   const handleFavoriteClick = (e) => {
     e.stopPropagation();
@@ -50,7 +49,7 @@ const CarsItem = ({ item }) => {
   };
   return (
     <>
-      <li className={s.card} onClick={() => openModal()}>
+      <li className={s.card} >
         <button
           className={s.icon}
           onClick={handleFavoriteClick}
@@ -96,7 +95,7 @@ const CarsItem = ({ item }) => {
             </ul>
           </div>
         </div>
-        <Button className={s.card_btn}>Learn more</Button>
+        <Button className={s.card_btn} onClick={() => openModal()}>Learn more</Button>
       </li>
       {isOpen && <CarModal onClose={closeModal} item={item} />}
     </>

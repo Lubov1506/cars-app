@@ -7,7 +7,6 @@ const Favorites = () => {
   const favoritesCars = useSelector(selectFavorites);
   return (
     <>
-      {" "}
       {!!favoritesCars.length && (
         <ul className={s.list}>
           {favoritesCars.map((item) => {

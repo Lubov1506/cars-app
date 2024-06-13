@@ -29,7 +29,7 @@ const CarModal = ({ onClose, item }) => {
     .toLowerCase()}`;
 
   const rentalCondFormat = formatRentalConditions(rentalConditions);
-  console.log(rentalCondFormat);
+
   return (
     <Modal onClose={onClose} className={s.modal}>
       <section className={s.main_info}>
@@ -91,7 +91,7 @@ const CarModal = ({ onClose, item }) => {
           </li>
         </ul>
       </section>
-      <Button className={s.btn_rental}>Rental car</Button>
+      <a href="tel:+380730000000" className={s.btn_rental}>Rental car</a>
     </Modal>
   );
 };

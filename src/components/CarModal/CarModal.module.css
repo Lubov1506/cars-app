@@ -97,7 +97,22 @@
     color: var(--btn-background);
   }
   .btn_rental {
+    border: none;
+    color: var(--color-white);
+
+    border-radius: 12px;
     padding: 12px 50px;
     align-self: flex-start;
+    background-color: var(--btn-background);
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.4;
+    transition: background-color var(--transition-effect),
+      color var(--transition-effect);
+    &:hover,
+    &:focus {
+      background-color: var(--btn-hover);
+    }
   }
 }

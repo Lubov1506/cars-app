@@ -1,10 +1,11 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
-import { fetchAllCarsThunk, fetchCarsPagThunk } from "./operations";
+import { fetchAllCarsThunk, fetchSearchCarsThunk } from "./operations";
 
 const initialState = {
   cars: [],
   favorites: [],
   favoritesId: [],
+  query: {},
   isLoading: false,
   isError: false,
   totalPage: null,
@@ -32,38 +33,40 @@ const slice = createSlice({
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
+    setQuery: (state, action) => {
+      state.query = action.payload;
+    },
+    resetCars: (state) => {
+      state.cars = [];
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllCarsThunk.fulfilled, (state, { payload }) => {
         state.totalPage = Math.ceil(payload.length / state.limit);
       })
-      .addCase(fetchCarsPagThunk.fulfilled, (state, { payload }) => {
-        console.log(payload);
-        state.cars = [...state.cars, ...payload];
+      .addCase(fetchSearchCarsThunk.fulfilled, (state, { payload }) => {
+        if (state.currentPage === 1) {
+          state.cars = payload;
+        } else {
+          state.cars = [...state.cars, ...payload];
+        }
+        state.isLoading = false;
       })
 
-      .addMatcher(
-        isAnyOf(fetchCarsPagThunk.pending, fetchAllCarsThunk.pending),
-        (state) => {
-          state.error = false;
-          state.isLoading = true;
-        }
-      )
-      .addMatcher(
-        isAnyOf(fetchCarsPagThunk.rejected, fetchAllCarsThunk.rejected),
-        (state) => {
-          state.error = true;
-          state.isLoading = false;
-        }
-      )
-      .addMatcher(
-        isAnyOf(fetchCarsPagThunk.fulfilled, fetchAllCarsThunk.fulfilled),
-        (state) => {
-          state.isLoading = false;
-        }
-      );
+      .addMatcher(isAnyOf(fetchAllCarsThunk.pending), (state) => {
+        state.error = false;
+        state.isLoading = true;
+      })
+      .addMatcher(isAnyOf(fetchAllCarsThunk.rejected), (state) => {
+        state.error = true;
+        state.isLoading = false;
+      })
+      .addMatcher(isAnyOf(fetchAllCarsThunk.fulfilled), (state) => {
+        state.isLoading = false;
+      });
   },
 });
-export const { toggleFavorite, setCurrentPage } = slice.actions;
+export const { toggleFavorite, setCurrentPage, setQuery, resetCars } =
+  slice.actions;
 export const carsReducer = slice.reducer;

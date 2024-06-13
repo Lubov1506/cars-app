@@ -5,27 +5,43 @@ axios.defaults.baseURL = "https://664396276c6a65658707ade7.mockapi.io/";
 
 export const fetchAllCarsThunk = createAsyncThunk(
   "cars/FetchAll",
-  async (_, thunkApi) => {
+  async (params, thunkApi) => {
+    console.log("again");
+    const { query } = params;
     try {
-      const { data } = await axios.get("adverts");
-      console.log(data);
+      const url = new URL(
+        "https://664396276c6a65658707ade7.mockapi.io/adverts"
+      );
+      Object.entries(query).length > 0 &&
+        Object.entries(query).forEach(([key, value]) => {
+          url.searchParams.append(key, value);
+        });
+      const { data } = await axios.get(url.toString());
+
       return data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.message);
     }
   }
 );
-export const fetchCarsPagThunk = createAsyncThunk(
-  "cars/FetchCarsPag",
-  async ({ page }, thunkApi) => {
+
+export const fetchSearchCarsThunk = createAsyncThunk(
+  "cars/FetchSearchCars",
+  async (params, thunkApi) => {
+    const { query, limit = 12, page = 1 } = params;
     try {
-      const { data } = await axios.get("adverts", {
-        params: {
-          limit: 12,
-          page,
-        },
-      });
-      console.log(data);
+      const url = new URL(
+        "https://664396276c6a65658707ade7.mockapi.io/adverts"
+      );
+
+      url.searchParams.append("limit", limit);
+      url.searchParams.append("page", page);
+
+      Object.entries(query).length > 0 &&
+        Object.entries(query).forEach(([key, value]) => {
+          url.searchParams.append(key, value);
+        });
+      const { data } = await axios.get(url.toString());
       return data;
     } catch (err) {
       return thunkApi.rejectWithValue(err.message);
