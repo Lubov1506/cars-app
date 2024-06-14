@@ -1,57 +1,57 @@
 # Car Rental App
 
-Цей проект є додатком для оренди автомобілів, що дозволяє користувачам шукати автомобілі за різними критеріями, додавати їх до обраного, а також використовує пагінацію для відображення результатів.
+This project is a car rental application that allows users to search for cars based on various criteria, add them to favorites, and uses pagination to display search results.
 
-## Зміст
+## Table of Contents
 
-- [Встановлення](#встановлення)
-- [Використання](#використання)
-- [API](#api)
-- [Розробка](#розробка)
-- [Контакти](#контакти)
+- Installation
+- Usage
+- API
+- Development
+- Contact
 
-## Встановлення
+## Installation
 
-Для встановлення та запуску проекту виконайте наступні кроки:
+To install and run the project locally, follow these steps:
 
-1. Клонуйте репозиторій:
+1. Clone the repository:
 
    ```sh
    git clone https://github.com/yourusername/car-rental-app.git
    cd car-rental-app
    ```
 
-2. Встановіть залежності:
+2. Install dependencies:
 
    ```sh
    npm install
    ```
 
-3. Запустіть додаток:
+3. Start the application:
    ```sh
    npm start
    ```
 
-Додаток буде доступний за адресою `http://localhost:3000`.
+The application will be accessible at `http://localhost:3000`.
 
-## Використання
+## Usage
 
-Після запуску додатка користувачі можуть:
+Once the application is running, users can:
 
-- Шукати автомобілі за різними критеріями (наприклад, марка, модель, рік).
-- Додавати автомобілі до обраного.
-- Переглядати список обраних автомобілів.
-- Використовувати пагінацію для навігації між сторінками результатів пошуку.
+- Search for cars using various criteria such as brand, model, and year.
+- Add cars to their favorites list.
+- View their list of favorite cars.
+- Navigate through search results using pagination.
 
 ## API
 
-Додаток використовує [MockAPI](https://mockapi.io/) для отримання даних про автомобілі.
+The application fetches car data from MockAPI.
 
-### Запити
+### Endpoints
 
-- `GET /adverts` - Отримання списку автомобілів. Підтримує параметри `limit`, `page` та інші фільтри.
+- `GET /adverts` - Retrieves a list of cars. Supports parameters like `limit`, `page`, and other filters.
 
-### Приклад запиту
+### Example Request
 
 ```javascript
 const url = new URL("https://664396276c6a65658707ade7.mockapi.io/adverts");
@@ -63,36 +63,36 @@ const response = await axios.get(url.toString());
 console.log(response.data);
 ```
 
-## Розробка
+## Development
 
 ### Redux Store
 
-Додаток використовує Redux для керування станом та redux-persist для збереження стану в локальному сховищі.
+The application uses Redux for state management and redux-persist to maintain state in local storage.
 
 ### Thunks
 
-Два основних thunks використовуються для отримання даних з API:
+Two main thunks are used to fetch data from the API:
 
-- fetchAllCarsThunk - Отримує всі автомобілі з урахуванням фільтрів.
-- fetchSearchCarsThunk - Отримує автомобілі з урахуванням фільтрів та пагінації.
+- fetchAllCarsThunk - Fetches all cars based on filters.
+- fetchSearchCarsThunk - Fetches cars based on filters and pagination.
 
-### Слайс cars
+### `cars` Slice
 
-Слайс містить стани, такі як cars, favorites, favoritesId, query, isLoading, isError, totalPage, limit, currentPage, totalItems.
+The `cars` slice manages states including `cars`, `favorites`, `favoritesId`, `query`, `isLoading`, `isError`, `totalPage`, `limit`, and `currentPage`.
 
-### Компоненти
+### Components
 
-- CarsList - Список автомобілів.
-- CarsItem - Картка окремого автомобіля.
-- SearchBar - Панель пошуку.
-- CarModal - Модальне вікно з детальною інформацією про автомобіль.
-- Header - Заголовок додатку.
-- Navigation - Навігаційне меню.
-- Container - Контейнер для компонентів.
-- Button - Кнопка для взаємодії.
+- CarsList - Displays a list of cars.
+- CarsItem - Represents a single car card.
+- SearchBar - Component for searching cars.
+- CarModal - Modal window showing detailed car information.
+- Header - Application header component.
+- Navigation - Navigation menu component.
+- Container - Layout wrapper component.
+- Button - Interactive button component.
 
-### Хелпери
+### Helpers
 
-- formatPrice - Форматування ціни оренди.
-- formatRentalConditions - Форматування умов оренди.
-- prettyBalanceFormat - Форматування балансу.
+- formatPrice - Formats rental prices.
+- formatRentalConditions - Formats rental conditions.
+- prettyBalanceFormat - Formats balance display.
