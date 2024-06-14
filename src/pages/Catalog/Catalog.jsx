@@ -30,25 +30,25 @@ const Catalog = () => {
   }, [dispatch, query]);
 
   useEffect(() => {
-    if (cars.length === 0) {
-      dispatch(fetchSearchCarsThunk({ query }));
+    if (currentPage === 1) {
+      dispatch(fetchSearchCarsThunk({ query, page: 1 }));
+    } else {
+      dispatch(fetchSearchCarsThunk({ query, page: currentPage }));
     }
-  }, [dispatch, query, cars]);
+  }, [dispatch, query, currentPage]);
 
   const handleSubmit = (values) => {
     dispatch(resetCars());
     dispatch(setQuery(values));
     dispatch(setCurrentPage(1));
-    dispatch(fetchSearchCarsThunk({ query: values, page: 1 }));
   };
+
   const handleLoadMore = () => {
     const nextPage = currentPage + 1;
     if (nextPage <= totalPage) {
       dispatch(setCurrentPage(nextPage));
-      dispatch(fetchSearchCarsThunk({ query, page: nextPage }));
     }
   };
-
   return (
     <Container className={s.container}>
       <SearchBar onSubmit={handleSubmit} query={query} />

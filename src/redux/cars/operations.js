@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { formatPrice } from "../../helpers/formatPrice";
 
 axios.defaults.baseURL = "https://664396276c6a65658707ade7.mockapi.io/";
 
@@ -38,10 +39,24 @@ export const fetchSearchCarsThunk = createAsyncThunk(
 
       Object.entries(query).length > 0 &&
         Object.entries(query).forEach(([key, value]) => {
-          url.searchParams.append(key, value);
+          if (key === "rentalPrice") {
+            return;
+          }
+          if (value.trim() !== "") {
+            url.searchParams.append(key, value);
+          }
         });
       const { data } = await axios.get(url.toString());
-      return data;
+
+      let filteredData = data;
+
+      if (Object.keys(query).includes("rentalPrice")) {
+        filteredData = data.filter((car) => {
+          return formatPrice(car.rentalPrice) <= Number(query.rentalPrice);
+        });
+      }
+
+      return filteredData;
     } catch (err) {
       return thunkApi.rejectWithValue(err.message);
     }

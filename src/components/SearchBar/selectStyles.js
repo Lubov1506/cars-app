@@ -1,4 +1,4 @@
-export const brandSelectStyles = {
+export const selectStyles = {
   control: (baseStyles, state) => ({
     ...baseStyles,
     borderColor: state.isFocused ? "grey" : " rgba(74, 86, 226, 0.10)",

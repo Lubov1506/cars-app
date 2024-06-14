@@ -1,8 +1,89 @@
-# React + Vite
+# Car Rental App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Цей проект є додатком для оренди автомобілів, що дозволяє користувачам шукати автомобілі за різними критеріями, додавати їх до обраного, а також використовує пагінацію для відображення результатів.
 
-Currently, two official plugins are available:
+## Зміст
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Встановлення](#встановлення)
+- [Використання](#використання)
+- [Структура проекту](#структура-проекту)
+- [API](#api)
+- [Розробка](#розробка)
+- [Контакти](#контакти)
+
+## Встановлення
+
+Для встановлення та запуску проекту виконайте наступні кроки:
+
+1. Клонуйте репозиторій:
+
+   ```sh
+   git clone https://github.com/yourusername/car-rental-app.git
+   cd car-rental-app
+   ```
+
+2. Встановіть залежності:
+
+   ```sh
+   npm install
+   ```
+
+3. Запустіть додаток:
+   ```sh
+   npm start
+   ```
+
+Додаток буде доступний за адресою `http://localhost:3000`.
+
+## Використання
+
+Після запуску додатка користувачі можуть:
+
+- Шукати автомобілі за різними критеріями (наприклад, марка, модель, рік).
+- Додавати автомобілі до обраного.
+- Переглядати список обраних автомобілів.
+- Використовувати пагінацію для навігації між сторінками результатів пошуку.
+
+## API
+
+Додаток використовує [MockAPI](https://mockapi.io/) для отримання даних про автомобілі.
+
+### Запити
+
+- `GET /adverts` - Отримання списку автомобілів. Підтримує параметри `limit`, `page` та інші фільтри.
+
+### Приклад запиту
+
+```javascript
+const url = new URL("https://664396276c6a65658707ade7.mockapi.io/adverts");
+url.searchParams.append("limit", 12);
+url.searchParams.append("page", 1);
+url.searchParams.append("brand", "Toyota");
+
+const response = await axios.get(url.toString());
+console.log(response.data);
+```
+
+## Розробка
+
+### Redux Store
+
+Додаток використовує Redux для керування станом та redux-persist для збереження стану в локальному сховищі.
+
+### Thunks
+
+Два основних thunks використовуються для отримання даних з API:
+
+- fetchAllCarsThunk - Отримує всі автомобілі з урахуванням фільтрів.
+- fetchSearchCarsThunk - Отримує автомобілі з урахуванням фільтрів та пагінації.
+
+### Слайс cars
+
+Слайс містить стани, такі як cars, favorites, favoritesId, query, isLoading, isError, totalPage, limit, currentPage, totalItems.
+
+### Компоненти
+
+Button - Кнопка для взаємодії.
+CarsList - Список автомобілів.
+Container - Контейнер для компонентів.
+SearchBar - Панель пошуку.

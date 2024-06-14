@@ -1,4 +1,4 @@
-export const filterDats = [
+export const brandsFilterData = [
   "Buick",
   "Volvo",
   "HUMMER",
@@ -22,3 +22,4 @@ export const filterDats = [
   "Kia",
   "Land",
 ];
+export const priceFilterData = [30, 40, 50, 60, 70, 80];
